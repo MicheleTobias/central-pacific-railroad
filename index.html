@@ -16,11 +16,13 @@
 
 	<title>Central Pacific Railroad Project</title>
 	<meta charset="utf-8" />
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+	
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
 
@@ -76,11 +78,20 @@
     L.geoJson(data).addTo(mymap);
   });
 */
-  
+
+	//LOAD GEOJSON
+
   fetch('data/cprr_lines.geojson')
 	.then(res => res.json())
 	.then((out) => {
-        L.geoJson(out).addTo(mymap);
+        L.geoJson(out, {style: function(feature) {
+                switch (feature.properties.map_source) {
+                case 'Judah Missing Maps 1861': return {color: "#f29e0c", opacity:0.7};
+				case 'Montague 1868': return {color: "#5d9700", opacity:0.7};
+				case 'Judah 1861': return {color: "#00FF7F", opacity:0.7};
+				case 'USGS 1891': return {color: "#008fbb", opacity:0.7};
+				case 'Judah 1861': return {color: "#cc484e", opacity:0.7};
+				}}}).addTo(mymap);
 		}).catch(err => console.error(err));
 
   fetch('data/cprr_diverging_areas.geojson')
@@ -89,7 +100,7 @@
         L.geoJson(out).addTo(mymap);
 		}).catch(err => console.error(err));
 
-
+	//STYLE GEOJSON: https://gis.stackexchange.com/questions/272490/styling-individual-features-in-a-geojson-layer
 
 	</script>
 </section>
