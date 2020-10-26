@@ -68,12 +68,12 @@
   fetch('data/cprr_lines.geojson')
 	.then(res => res.json())
 	.then((out) => {
-        L.geoJson(out, {weight:5, style: function(feature) {
+        L.geoJson(out, {weight:5, opacity:1, style: function(feature) {
                 switch (feature.properties.map_source) {
-                case 'Judah Missing Maps 1861': return {color: "#f29e0c", opacity:0.7};
-				case 'Montague 1868': return {color: "#5d9700", opacity:0.7};
-				case 'USGS 1891': return {color: "#008fbb", opacity:0.7};
-				case 'Judah 1861': return {color: "#c0444a", opacity:0.7};
+                case 'Judah Missing Maps 1861': return {color: "#f29e0c"};
+				case 'Montague 1868': return {color: "#5d9700"};
+				case 'USGS 1891': return {color: "#008fbb"};
+				case 'Judah 1861': return {color: "#cc484e"};
 				}}}).addTo(mymap);
 		}).catch(err => console.error(err));
 //#c0444a
@@ -95,9 +95,9 @@
 	legend.onAdd = function(mymap){
 	
 		var div = L.DomUtil.create('div', 'info legend');
-			labels = ['<stong>Categories</stong>'];
-			categories = ['Judah Missing Maps 1861', 'Montague 1868', 'USGS 1891', 'Judah 1861'];
-			linecolors = ["#f29e0c", "#5d9700", "#008fbb", "#c0444a"];
+			labels = ['<stong>Railroad Lines</stong>'];
+			categories = ['Judah 1861', 'Judah Missing Maps 1861', 'Montague 1868', 'USGS 1891'];
+			linecolors = ["#cc484e", "#f29e0c", "#5d9700", "#008fbb"];
 		
 		for (var i = 0; i < categories.length; i++){
 			div.innnerHTML +=
