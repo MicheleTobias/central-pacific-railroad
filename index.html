@@ -12,6 +12,19 @@
 			text-align: center;
 			font-weight: bold;
 			}
+			
+		.legend {
+			line-height: 18px;
+			color: #000000;
+			background-color: white;
+			}
+		.legend i {
+			width: 18px;
+			height: 18px;
+			float: left;
+			margin-right: 8px;
+			opacity: 0.7;
+			}
 	</style>
 
 	<title>Central Pacific Railroad Project</title>
@@ -29,8 +42,6 @@
 
 
 </head>
-
-
 
 <body>
 	<header>
@@ -78,6 +89,27 @@
 
 // Layers Control
 
+// Legend  ... reference: https://gis.stackexchange.com/questions/133630/adding-leaflet-legend
+	var legend = L.control({position: 'bottomright'});
+	
+	legend.onAdd = function(mymap){
+	
+		var div = L.DomUtil.create('div', 'info legend');
+			labels = ['<stong>Categories</stong>'];
+			categories = ['Judah Missing Maps 1861', 'Montague 1868', 'USGS 1891', 'Judah 1861'];
+			linecolors = ["#f29e0c", "#5d9700", "#008fbb", "#c0444a"];
+		
+		for (var i = 0; i < categories.length; i++){
+			div.innnerHTML +=
+			labels.push('<i class="circle" style="background:' + linecolors[i] + '"></i> ' + (categories[i] ? categories[i] : '+'));
+		
+		}
+		div.innerHTML = labels.join('<br>');
+	
+		return div;
+	};
+
+	legend.addTo(mymap);
 
 
 	</script>
